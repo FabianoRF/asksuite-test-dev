@@ -1,4 +1,4 @@
-import puppeteer, { Browser } from 'puppeteer'
+import puppeteer, { Browser, Page } from 'puppeteer'
 import IBrowserService from './models/IBrowserService'
 
 export default class BrowserService implements IBrowserService {
@@ -11,5 +11,9 @@ export default class BrowserService implements IBrowserService {
       return
     }
     return browser.close()
+  }
+
+  public async newPage(browser: Browser): Promise<Page> {
+    return browser.newPage()
   }
 }

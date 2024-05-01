@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import SearchController from '../controllers/SearchController'
+import RoomController from '../controllers/RoomController'
 
 const searchRouter = Router()
-const searchController = new SearchController()
+const searchController = new RoomController()
 
 searchRouter.post('/', searchController.index)
 
