@@ -1,6 +1,6 @@
 import puppeteer, { Browser } from 'puppeteer'
 
-class BrowserService {
+export default class BrowserService {
   static getBrowser() {
     return puppeteer.launch({})
   }
@@ -12,5 +12,3 @@ class BrowserService {
     return browser.close()
   }
 }
-
-module.exports = BrowserService
