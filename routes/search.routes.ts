@@ -1,9 +1,9 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
+import SearchController from '../controllers/SearchController'
 
 const searchRouter = Router()
+const searchController = new SearchController()
 
-searchRouter.get('/', (req: Request, res: Response) => {
-  res.send('Hello Asksuite World!')
-})
+searchRouter.post('/', searchController.index)
 
 export default searchRouter
