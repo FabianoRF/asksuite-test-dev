@@ -1,9 +1,9 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express'
 
-const searchRouter = Router();
+const searchRouter = Router()
 
 searchRouter.get('/', (req: Request, res: Response) => {
-  res.send('Hello Asksuite World!');
-});
+  res.send('Hello Asksuite World!')
+})
 
-export default searchRouter;
+export default searchRouter

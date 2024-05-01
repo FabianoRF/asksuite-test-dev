@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import searchRouter from './search.routes';
+import { Router } from 'express'
+import searchRouter from './search.routes'
 
-const router = Router();
+const router = Router()
 
-router.use('/search', searchRouter);
+router.use('/search', searchRouter)
 
-export default router;
+export default router
