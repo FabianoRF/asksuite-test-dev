@@ -3,6 +3,7 @@ import IBrowserService from '../services/models/IBrowserService'
 import OutputGetRoomListUseCase from '../dtos/GetRoomListUseCase/OutputGetRoomListUseCase'
 import InputGetRoomListUseCase from '../dtos/GetRoomListUseCase/InputGetRoomListUseCase'
 import { Page } from 'puppeteer'
+import AppError from '../helpers/AppError'
 
 @injectable()
 export default class GetRoomListUseCase {
@@ -17,7 +18,11 @@ export default class GetRoomListUseCase {
   }: InputGetRoomListUseCase): Promise<OutputGetRoomListUseCase[]> {
     console.log('GetRoomListUseCase :: START')
 
-    // validar se possui pelo menos 3 dias de diferença entre checkIn e checkout
+    if (!this.validateMinDaysOfStay(checkin, checkout)) {
+      throw new AppError(
+        'Minimum 3 night stay required, please provide new dates',
+      )
+    }
 
     const browser = await this.browserService.getBrowser()
     console.log('GetRoomListUseCase :: browser initialized')
@@ -27,7 +32,6 @@ export default class GetRoomListUseCase {
     await page.goto(url, {
       waitUntil: 'networkidle2',
     })
-    await page.waitForSelector('.room-list')
 
     const formattedRoomsData = await this.getFormattedRoomsData(page)
     console.log(
@@ -39,6 +43,17 @@ export default class GetRoomListUseCase {
     console.log('GetRoomListUseCase :: FINISHED ')
 
     return formattedRoomsData
+  }
+
+  private validateMinDaysOfStay(checkin: string, checkout: string) {
+    const checkinDate = new Date(checkin)
+    const checkoutDate = new Date(checkout)
+
+    const diffTime = Math.abs(checkoutDate.getTime() - checkinDate.getTime())
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+    console.log('GetRoomListUseCase :: diffDays :: ', diffDays)
+
+    return diffDays >= 3
   }
 
   private getUrl(checkin: string, checkout: string) {
