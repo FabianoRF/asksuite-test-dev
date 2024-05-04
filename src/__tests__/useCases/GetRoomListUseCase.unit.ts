@@ -3,6 +3,7 @@ import InputGetRoomListUseCase from '../../dtos/GetRoomListUseCase/InputGetRoomL
 import GetRoomListUseCase from '../../useCases/GetRoomListUseCase'
 import FakeBrowserService, { pageDataMock } from '../fakes/FakeBrowserService'
 import AppError from '../../helpers/AppError'
+import { minimumNightsErrorMessage } from '../../const/errors'
 
 let browserServiceMock: FakeBrowserService
 let getRoomListUseCase: GetRoomListUseCase
@@ -15,8 +16,8 @@ describe('GetRoomListUseCase', () => {
 
   test('Should be able to return rooms list successfully', async () => {
     const inputMock: InputGetRoomListUseCase = {
-      checkin: '2024-05-01',
-      checkout: '2024-05-04',
+      checkin: new Date('2024-05-01'),
+      checkout: new Date('2024-05-04'),
     }
 
     const result = await getRoomListUseCase.run(inputMock)
@@ -26,13 +27,11 @@ describe('GetRoomListUseCase', () => {
 
   test('Should be able to return error when of nights to stay is not reached', async () => {
     const inputMock: InputGetRoomListUseCase = {
-      checkin: '2024-05-01',
-      checkout: '2024-05-03',
+      checkin: new Date('2024-05-01'),
+      checkout: new Date('2024-05-03'),
     }
 
-    const expectedError = new AppError(
-      'Minimum 3 night stay required, please provide new dates',
-    )
+    const expectedError = new AppError(minimumNightsErrorMessage)
 
     await expect(getRoomListUseCase.run(inputMock)).rejects.toStrictEqual(
       expectedError,

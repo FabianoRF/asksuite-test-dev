@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import searchRouter from './search.routes'
+import roomRouter from './room.routes'
 
 const router = Router()
 
-router.use('/search', searchRouter)
+router.use('/search', roomRouter)
 
 export default router

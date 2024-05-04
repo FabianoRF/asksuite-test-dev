@@ -1,5 +1,5 @@
 type InputGetRoomListUseCase = {
-  checkin: string
-  checkout: string
+  checkin: Date
+  checkout: Date
 }
 export default InputGetRoomListUseCase

@@ -29,5 +29,6 @@
           "ignoreRestSiblings": true
         }
       ]
-    }
+    },
+    "ignorePatterns": ["*.js"]
 }
