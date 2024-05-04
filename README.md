@@ -1,102 +1,58 @@
 # Test Dev Asksuite
 
-Hey! Glad you're here.
-I'm going to explain exactly what you'll have to implement in this test and what we expect as outcome.
+Olá!
 
-First of all, we have this nice express.js boilerplate project to assist you so you don't have to create everything from scratch.
+Seguem algumas observações acerca do do desenvolvimento do teste e das ferramentas utilizadas.
 
-## Briefing
-The traveller comes to our bot and asks for "Price quotation". Then the bot asks for the dates the traveller wants to 
-stay at the bot's hotel.
-At the moment the traveller fills the requested information the bot needs to search the prices for each room available in the check-in/check-out 
-timeframe.
+## Considerações
 
-You will have to implement the API responsible for doing the searching part.
-The necessary information for the crawler is under the [Assets](#assets) session
+As seguintes questões foram consideradas como regra de negocio dessa aplicação após explorar o site fornecido como base de dados para o endpoint:
 
-## What you'll need to do:
-* Create a POST endpoint "/search"
-    * The expected payload is:
-    
-        <pre>
-        {
-            "checkin": "YYYY-MM-DD", // Check-in date
-            "checkout": "YYYY-MM-DD" // Check-out date
-        }
-        </pre>
-        
-       Example
-       
-        <pre>
-        {
-            "checkin": "2021-07-01", 
-            "checkout": "2021-07-03"
-        }
-        </pre>
-        
-    * The expected result is an array of rooms:
-    
-        <pre>
-        [{
-            "name": string, // Room name
-            "description": string,  // Room description
-            "price": string, // Room daily price
-            "image": string, // Room main photo
-        }]
-        </pre>
-        
-        Example
-        
-        <pre>
-        [{
-            "name": "STUDIO CASAL",
-            "description": "Apartamentos localizados no prédio principal do Resort, próximos a recepção e a área de convivência, com vista para área de estacionamento não possuem varanda. Acomoda até 1 adulto e 1 criança ou 2 adultos", 
-            "price": "R$ 1.092,00",
-            "image": "https://letsimage.s3.amazonaws.com/letsbook/193/quartos/30/fotoprincipal.jpg"
-        },
-        {
-            "name": "CABANA",
-            "description": "Apartamentos espalhados pelos jardins do Resort, com vista jardim possuem varanda. Acomoda até 4 adultos ou 3 adultos e 1 criança ou 2 adultos e 2 criança ou 1 adulto e 3 crianças, em duas camas casal.", 
-            "price": "R$ 1.321,00",
-            "image": "https://letsimage.s3.amazonaws.com/letsbook/193/quartos/32/fotoprincipal.jpg"
-        }]
-        </pre>
-        
-To achieve this result you may:
+* Foi adicionada uma validação para apenas aceitar um intervalo de checkin e checkout de no mínimo 3 noites, pois o site apenas exibe dados quando há este intervalo mínimo
+* Foi adicionada também uma regra para validar apenas datas maiores que a do dia da consulta, pois uma consulta no passado não faria sentido
 
-* With puppeteer, go to the [given URL](#assets)
-* Retrieve the needed information to assemble the payload using web crawling methods
+Sobre o uso do boilerplate, escolhi por manter a estrutura principal, porém incrementei com alguns patterns, adicionando um controller, e um useCase(classe que contem apenas um método publico e possui a regra de negocio)
 
-## Environment
-* Node 10+
-* Dotenv setup
 
-Already installed: `express` `puppeteer` `dotenv`
+## Tecnologias e bibliotecas utilizadas
 
-**_Feel free to add any lib you find relevant to your test._**
+* Typescript
+* Eslint
+* Prettier
+* Jest
+* Tsyringe - Dependency Injection
+* swagger
 
 
 ## Running
-* Install dependencies with: `npm install`
-* Run as dev: `npm run dev`
 
-Default port is set to `8080`
+* Instalando dependências: `npm install` ou `yarn`
+* Rodando em dev: `npm run dev` or `yarn dev`
+* Gerando documentação de api: `npm run swagger` or `yarn swagger`
+* build: `npm run build` or `yarn build`
+* start: `npm run start` or `yarn start`
 
-## Assets
-* Crawl URL sample (change dates): 
-<pre>https://pratagy.letsbook.com.br/D/Reserva?checkin=21%2F06%2F2022&checkout=25%2F06%2F2022&cidade=&hotel=12&adultos=2&criancas=&destino=Pratagy+Beach+Resort+All+Inclusive&promocode=&tarifa=&mesCalendario=6%2F14%2F2022</pre>
-* Help images:
-![sample_1](assets/sample_1.png)
+Porta default está setada em `8080`
 
-## Test rating
-What do we evaluate with this test?
 
-* Dev's capacity of:
-    * Self-learning
-    * Working with node
-    * Understanding an existent project
-* Dev's code quality:
-    * Clear and maintainable code
-    * Coding structure
-    * Changes that don't break easily
+## Divisão de Tasks
 
+Após mapeados os requisitos me organizei nas seguintes tarefas, utilizando de seu prefixo como referencia nas mensagens dos commits:
+
+* TASK-1: Configurar typescript
+* TASK-2: Configurar lint
+* TASK-3: Configurar container DI
+* TASK-4: Criar estrutura de Controller
+* TASK-5: Criar estrutura de useCase
+* TASK-6: Configurar jest
+* TASK-7: Criar useCase de carregamento de dados
+* TASK-8: Adicionar validação de input
+    * Validar tipo date e se há diferença de 3 dias entre elas
+    * Adicionar validação com joi + celebrate
+* TASK-10: Adicionar testes unitários
+* TASK-9: Correções finais
+    * Lindar com erros
+* TASK-11: Adicionar swagger
+* TASK-12: Documentação
+    * Criar readme.md
+    * Adicionar script de build

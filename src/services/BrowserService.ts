@@ -4,7 +4,7 @@ import IBrowserService from './models/IBrowserService'
 export default class BrowserService implements IBrowserService {
   public async getBrowser(): Promise<Browser> {
     return puppeteer.launch({
-      headless: false,
+      headless: true,
     })
   }
 
