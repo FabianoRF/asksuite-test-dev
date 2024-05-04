@@ -2,7 +2,7 @@
 
 Olá!
 
-Seguem algumas observações acerca do do desenvolvimento do teste e das ferramentas utilizadas.
+Seguem algumas observações acerca do do desenvolvimento do desafio e das ferramentas utilizadas.
 
 ## Considerações
 
