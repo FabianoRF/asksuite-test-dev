@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "swagger": "node swagger.js"
   },
   "author": "Fabiano Reis",
   "license": "ISC",
@@ -19,12 +20,15 @@
     "express-async-errors": "^3.1.1",
     "puppeteer": "^10.0.0",
     "reflect-metadata": "^0.2.2",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.0",
     "tsyringe": "^4.8.0"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
+    "@types/swagger-ui-express": "^4.1.6",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
     "eslint": "^8.51.0",

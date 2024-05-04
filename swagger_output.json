@@ -1,0 +1,84 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Ask suite test API",
+    "description": "Description",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/search/": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Input from search rooms",
+            "schema": {
+              "$ref": "#/definitions/SearchRoom"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of rooms",
+            "schema": {
+              "$ref": "#/definitions/Rooms"
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Rooms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "STUDIO CASAL"
+          },
+          "description": {
+            "type": "string",
+            "example": "Apartamentos localizados no prédio principal do Resort, próximos a recepção e a área de convivência, com vista para área de estacionamento não possuem varanda. Acomoda até 1 adulto e 1 criança ou 2 adultos"
+          },
+          "price": {
+            "type": "string",
+            "example": "R$ 1.092,00"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://letsimage.s3.amazonaws.com/letsbook/193/quartos/30/fotoprincipal.jpg"
+          }
+        }
+      }
+    },
+    "SearchRoom": {
+      "type": "object",
+      "properties": {
+        "checkin": {
+          "type": "string",
+          "example": "2024-06-10"
+        },
+        "checkout": {
+          "type": "string",
+          "example": "2024-06-15"
+        }
+      },
+      "required": [
+        "checkin",
+        "checkout"
+      ]
+    }
+  }
+}
